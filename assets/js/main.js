@@ -36,6 +36,25 @@
 
   var partie = Regles.creerPartie();
 
+  /* Nombre de parties terminées (victoire ou match nul) depuis l'ouverture
+     de la page. Une partie abandonnée par « Nouvelle partie » ne compte pas.
+     Repart à 0 à chaque actualisation (pas de sauvegarde). */
+  var partiesTerminees = 0;
+
+  /** Affiche le nombre de parties terminées sous la grille. */
+  function afficherCompteur() {
+    var valeur = document.getElementById("compteur-parties");
+    if (valeur) {
+      valeur.textContent = String(partiesTerminees);
+    }
+  }
+
+  /** Compte une partie de plus, à appeler une seule fois quand une partie se termine. */
+  function compterPartieTerminee() {
+    partiesTerminees += 1;
+    afficherCompteur();
+  }
+
   /** Récupère les 9 cases de la grille, dans l'ordre (0 à 8). */
   function recupererCases() {
     return Array.prototype.slice.call(document.querySelectorAll(".grille .case"));
@@ -141,9 +160,12 @@
     afficherSymbole(bouton, index, resultat.symbole);
 
     if (partie.terminee) {
+      // Ce coup vient de terminer la partie (les coups suivants sont refusés
+      // plus haut) : elle n'est donc comptée qu'une seule fois.
       bloquerGrille();
       masquerTour();
       afficherMessage(texteFinDePartie());
+      compterPartieTerminee();
       return;
     }
     // Coup valide : on efface un éventuel message d'erreur et on change de tour.
@@ -183,6 +205,7 @@
       boutonNouvellePartie.addEventListener("click", nouvellePartie);
     }
     afficherTour();
+    afficherCompteur();
   }
 
   demarrer();
@@ -193,6 +216,9 @@
     nouvellePartie: nouvellePartie,
     partie: function () {
       return partie;
+    },
+    partiesTerminees: function () {
+      return partiesTerminees;
     }
   };
 })();

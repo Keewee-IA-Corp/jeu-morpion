@@ -241,6 +241,18 @@ body {
   color: var(--couleur-texte-doux);
 }
 
+/* Compteur de parties terminées */
+.compteur {
+  margin: 0;
+  text-align: center;
+  color: var(--couleur-texte-doux);
+}
+
+.compteur__valeur {
+  font-weight: 700;
+  color: var(--couleur-texte);
+}
+
 /* Bouton « Nouvelle partie » */
 .bouton {
   min-height: 44px;

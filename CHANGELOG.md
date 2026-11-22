@@ -1,5 +1,12 @@
 # Historique des changements
 
+## JME-20261122-200037 — Incrémenter le compteur de parties terminées
+
+- `index.html` : ligne « Parties terminées : 0 » sous la grille (entre la zone de message et le bouton « Nouvelle partie »).
+- `assets/js/main.js` : compteur `partiesTerminees` (0 au chargement de la page) ; `compterPartieTerminee` l'augmente de 1 au moment où la victoire ou le match nul est annoncé, et `afficherCompteur` met à jour l'affichage. « Nouvelle partie » ne touche pas au compteur : une partie abandonnée avant sa fin n'est pas comptée. Le compteur est exposé en lecture via `window.Morpion.partiesTerminees()`.
+- `assets/css/style.css` : style du compteur (`.compteur`, `.compteur__valeur`).
+- `README.md` : explication du compteur.
+
 ## JME-20261120-224152-5 — Recommencer une partie
 
 - `index.html` : bouton « Nouvelle partie » sous la zone de message.
