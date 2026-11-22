@@ -1,0 +1,276 @@
+/* ==========================================================
+   Jeu de morpion — feuille de style unique
+   ========================================================== */
+
+:root {
+  /* Couleurs */
+  --couleur-fond: #f4f6fb;
+  --couleur-surface: #ffffff;
+  --couleur-texte: #1f2937;
+  --couleur-texte-doux: #4b5563;
+  --couleur-primaire: #1d4ed8;
+  --couleur-grille: #1e3a8a;
+  --couleur-case: #ffffff;
+  --couleur-case-survol: #e0e7ff;
+  --couleur-focus: #f59e0b;
+  --couleur-croix: #b91c1c;
+  --couleur-rond: #1d4ed8;
+  --couleur-case-gagnante: #fef3c7;
+  --couleur-case-bloquee: #e5e7eb;
+
+  /* Espacements */
+  --espace-xs: 0.25rem;
+  --espace-s: 0.5rem;
+  --espace-m: 1rem;
+  --espace-l: 1.5rem;
+  --espace-xl: 2rem;
+
+  /* Typographie */
+  --police: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --taille-texte: 1rem;
+  --taille-titre: clamp(1.6rem, 6vw, 2.4rem);
+
+  /* Grille */
+  --taille-grille: min(90vw, 60vh, 420px);
+  --epaisseur-trait: 6px;
+  --rayon: 12px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--police);
+  font-size: var(--taille-texte);
+  line-height: 1.5;
+  color: var(--couleur-texte);
+  background: var(--couleur-fond);
+  overflow-x: hidden;
+}
+
+/* Masqué à l'écran mais lu par les lecteurs d'écran */
+.visuellement-cache {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- En-tête ---------- */
+.entete {
+  padding: var(--espace-l) var(--espace-m) var(--espace-m);
+  text-align: center;
+}
+
+.entete__titre {
+  margin: 0 0 var(--espace-s);
+  font-size: var(--taille-titre);
+  color: var(--couleur-primaire);
+}
+
+.entete__intro {
+  margin: 0 auto;
+  max-width: 36rem;
+  color: var(--couleur-texte-doux);
+}
+
+/* ---------- Zone de jeu ---------- */
+.jeu {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: var(--espace-m);
+}
+
+.jeu__plateau {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espace-m);
+  width: 100%;
+}
+
+/* Indicateur du joueur dont c'est le tour */
+.tour {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espace-s);
+  margin: 0;
+  padding: var(--espace-s) var(--espace-m);
+  max-width: 100%;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-align: center;
+  background: var(--couleur-surface);
+  border: 3px solid var(--couleur-grille);
+  border-radius: var(--rayon);
+}
+
+.tour[hidden] {
+  display: none;
+}
+
+.tour--croix {
+  border-color: var(--couleur-croix);
+}
+
+.tour--rond {
+  border-color: var(--couleur-rond);
+}
+
+.tour__symbole {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+}
+
+.tour__symbole .symbole {
+  width: 100%;
+  height: 100%;
+}
+
+/* La grille reste carrée et tient toujours dans l'écran */
+.grille {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: var(--epaisseur-trait);
+  width: var(--taille-grille);
+  height: var(--taille-grille);
+  max-width: 100%;
+  padding: var(--epaisseur-trait);
+  background: var(--couleur-grille);
+  border-radius: var(--rayon);
+}
+
+.case {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  font-size: calc(var(--taille-grille) / 5);
+  font-weight: 700;
+  color: var(--couleur-texte);
+  background: var(--couleur-case);
+  border: 0;
+  border-radius: calc(var(--rayon) / 2);
+  cursor: pointer;
+}
+
+.case:hover {
+  background: var(--couleur-case-survol);
+}
+
+/* Case déjà jouée : plus de survol ni de curseur « main » */
+.case--occupee {
+  cursor: default;
+}
+
+.case--occupee:hover {
+  background: var(--couleur-case);
+}
+
+/* Partie terminée : les cases ne réagissent plus */
+.case--bloquee,
+.case--bloquee:hover {
+  cursor: default;
+  background: var(--couleur-case-bloquee);
+}
+
+/* Les 3 cases de l'alignement gagnant sont mises en valeur */
+.case--gagnante,
+.case--gagnante:hover {
+  background: var(--couleur-case-gagnante);
+  box-shadow: inset 0 0 0 4px var(--couleur-focus);
+}
+
+.grille--terminee ~ .jeu__message {
+  font-weight: 700;
+  color: var(--couleur-texte);
+}
+
+/* Symboles dessinés en SVG */
+.symbole {
+  width: 80%;
+  height: 80%;
+  fill: none;
+  stroke-width: 12;
+  stroke-linecap: round;
+}
+
+.symbole--croix {
+  stroke: var(--couleur-croix);
+}
+
+.symbole--rond {
+  stroke: var(--couleur-rond);
+}
+
+.case:focus-visible {
+  outline: 4px solid var(--couleur-focus);
+  outline-offset: -4px;
+}
+
+.jeu__message {
+  margin: 0;
+  min-height: 1.5em;
+  text-align: center;
+  color: var(--couleur-texte-doux);
+}
+
+/* Bouton « Nouvelle partie » */
+.bouton {
+  min-height: 44px;
+  padding: var(--espace-s) var(--espace-l);
+  font: inherit;
+  font-weight: 700;
+  color: var(--couleur-surface);
+  background: var(--couleur-primaire);
+  border: 0;
+  border-radius: var(--rayon);
+  cursor: pointer;
+}
+
+.bouton:hover {
+  background: var(--couleur-grille);
+}
+
+.bouton:focus-visible {
+  outline: 4px solid var(--couleur-focus);
+  outline-offset: 2px;
+}
+
+/* ---------- Pied de page ---------- */
+.pied {
+  padding: var(--espace-m);
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--couleur-texte-doux);
+}
+
+.pied p {
+  margin: 0;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jeu de morpion</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="entete">
+    <h1 class="entete__titre">Jeu de morpion</h1>
+    <p class="entete__intro">Deux joueurs, un seul écran : à tour de rôle, alignez trois symboles pour gagner.</p>
+  </header>
+
+  <main class="jeu">
+    <section class="jeu__plateau" aria-labelledby="titre-grille">
+      <h2 id="titre-grille" class="visuellement-cache">Grille de jeu</h2>
+
+      <!-- Indicateur du joueur dont c'est le tour (la croix commence toujours) -->
+      <p class="tour tour--croix" id="tour" aria-live="polite">
+        <span class="tour__symbole" id="tour-symbole"><svg class="symbole symbole--croix" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><line x1="22" y1="22" x2="78" y2="78" /><line x1="78" y1="22" x2="22" y2="78" /></svg></span>
+        <span class="tour__texte" id="tour-texte">Au tour de la croix (joueur 1)</span>
+      </p>
+
+      <!-- Grille 3 × 3 : chaque case est un bouton, numérotée de 1 à 9 (ligne par ligne) -->
+      <div class="grille" role="group" aria-label="Grille de morpion, 3 cases sur 3">
+        <button type="button" class="case" data-case="0" aria-label="Case 1, ligne 1, colonne 1, vide"></button>
+        <button type="button" class="case" data-case="1" aria-label="Case 2, ligne 1, colonne 2, vide"></button>
+        <button type="button" class="case" data-case="2" aria-label="Case 3, ligne 1, colonne 3, vide"></button>
+        <button type="button" class="case" data-case="3" aria-label="Case 4, ligne 2, colonne 1, vide"></button>
+        <button type="button" class="case" data-case="4" aria-label="Case 5, ligne 2, colonne 2, vide"></button>
+        <button type="button" class="case" data-case="5" aria-label="Case 6, ligne 2, colonne 3, vide"></button>
+        <button type="button" class="case" data-case="6" aria-label="Case 7, ligne 3, colonne 1, vide"></button>
+        <button type="button" class="case" data-case="7" aria-label="Case 8, ligne 3, colonne 2, vide"></button>
+        <button type="button" class="case" data-case="8" aria-label="Case 9, ligne 3, colonne 3, vide"></button>
+      </div>
+
+      <!-- Zone de messages annoncés aux lecteurs d'écran (coup interdit, victoire, match nul) -->
+      <p class="jeu__message" id="message" aria-live="polite"></p>
+
+      <!-- Relance une partie sans recharger la page (grille vidée, la croix recommence) -->
+      <button type="button" class="bouton" id="nouvelle-partie">Nouvelle partie</button>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <p>Jeu de morpion — à jouer à deux sur le même appareil.</p>
+  </footer>
+
+  <script src="assets/js/regles.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
