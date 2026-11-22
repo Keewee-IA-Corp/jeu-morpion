@@ -20,6 +20,7 @@ Ouvrez simplement le fichier `index.html` dans un navigateur (double-clic). Aucu
 - Si les 9 cases sont occupées sans alignement, le jeu annonce un match nul.
 - Le bouton « Nouvelle partie », sous la grille, relance une partie à tout moment (en cours ou terminée) : la grille est vidée, le message précédent disparaît et la croix recommence. Actualiser la page relance aussi une partie.
 - Sous la grille, le compteur « Parties terminées » augmente de 1 à chaque victoire ou match nul. Une partie relancée avec « Nouvelle partie » avant sa fin n'est pas comptée. Le compteur repart à 0 quand on actualise la page.
+- Juste à côté, le score « Croix » / « Rond » compte les victoires de chaque joueur pendant la session : le gagnant prend 1 point à chaque victoire, un match nul ne change aucun score. Le score est conservé par « Nouvelle partie » et repart à 0 quand on actualise la page.
 
 ## Structure
 

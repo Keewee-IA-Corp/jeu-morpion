@@ -55,6 +55,36 @@
     afficherCompteur();
   }
 
+  /* Nombre de victoires de chaque joueur depuis l'ouverture de la page.
+     Les matchs nuls ne sont pas comptés ici. Conservé par « Nouvelle partie »,
+     remis à 0 à chaque actualisation (pas de sauvegarde). */
+  var victoires = {};
+  victoires[Regles.CROIX] = 0;
+  victoires[Regles.ROND] = 0;
+
+  var IDS_SCORE = {};
+  IDS_SCORE[Regles.CROIX] = "score-croix";
+  IDS_SCORE[Regles.ROND] = "score-rond";
+
+  /** Affiche le nombre de victoires de la croix et du rond sous la grille. */
+  function afficherScore() {
+    [Regles.CROIX, Regles.ROND].forEach(function (joueur) {
+      var valeur = document.getElementById(IDS_SCORE[joueur]);
+      if (valeur) {
+        valeur.textContent = String(victoires[joueur]);
+      }
+    });
+  }
+
+  /** Ajoute une victoire au gagnant, à appeler une seule fois quand une partie se termine. */
+  function compterVictoire(gagnant) {
+    if (!gagnant || !victoires.hasOwnProperty(gagnant)) {
+      return; // match nul : aucun score ne change
+    }
+    victoires[gagnant] += 1;
+    afficherScore();
+  }
+
   /** Récupère les 9 cases de la grille, dans l'ordre (0 à 8). */
   function recupererCases() {
     return Array.prototype.slice.call(document.querySelectorAll(".grille .case"));
@@ -166,6 +196,7 @@
       masquerTour();
       afficherMessage(texteFinDePartie());
       compterPartieTerminee();
+      compterVictoire(partie.gagnant);
       return;
     }
     // Coup valide : on efface un éventuel message d'erreur et on change de tour.
@@ -206,6 +237,7 @@
     }
     afficherTour();
     afficherCompteur();
+    afficherScore();
   }
 
   demarrer();
@@ -219,6 +251,9 @@
     },
     partiesTerminees: function () {
       return partiesTerminees;
+    },
+    victoires: function () {
+      return { croix: victoires[Regles.CROIX], rond: victoires[Regles.ROND] };
     }
   };
 })();

@@ -38,8 +38,17 @@
       <!-- Zone de messages annoncés aux lecteurs d'écran (coup interdit, victoire, match nul) -->
       <p class="jeu__message" id="message" aria-live="polite"></p>
 
-      <!-- Nombre de parties terminées (victoire ou match nul) depuis l'ouverture de la page -->
-      <p class="compteur">Parties terminées : <span class="compteur__valeur" id="compteur-parties">0</span></p>
+      <!-- Bilan de la session : parties terminées et victoires de chaque joueur (remis à 0 à l'actualisation) -->
+      <div class="bilan">
+        <!-- Nombre de parties terminées (victoire ou match nul) depuis l'ouverture de la page -->
+        <p class="compteur">Parties terminées : <span class="compteur__valeur" id="compteur-parties">0</span></p>
+
+        <!-- Nombre de victoires de chaque joueur (les matchs nuls ne sont pas comptés) -->
+        <p class="score">
+          <span class="score__joueur score__joueur--croix">Croix : <span class="compteur__valeur" id="score-croix">0</span></span>
+          <span class="score__joueur score__joueur--rond">Rond : <span class="compteur__valeur" id="score-rond">0</span></span>
+        </p>
+      </div>
 
       <!-- Relance une partie sans recharger la page (grille vidée, la croix recommence) -->
       <button type="button" class="bouton" id="nouvelle-partie">Nouvelle partie</button>

@@ -241,6 +241,36 @@ body {
   color: var(--couleur-texte-doux);
 }
 
+/* Bilan de la session : compteur de parties et score des joueurs */
+.bilan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espace-xs);
+}
+
+.score {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--espace-s) var(--espace-l);
+  margin: 0;
+  color: var(--couleur-texte-doux);
+}
+
+.score__joueur {
+  padding-left: var(--espace-s);
+  border-left: 4px solid var(--couleur-grille);
+}
+
+.score__joueur--croix {
+  border-left-color: var(--couleur-croix);
+}
+
+.score__joueur--rond {
+  border-left-color: var(--couleur-rond);
+}
+
 /* Compteur de parties terminées */
 .compteur {
   margin: 0;

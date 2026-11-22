@@ -1,5 +1,12 @@
 # Historique des changements
 
+## JME-20261122-220353 — Afficher le score de victoires de chaque joueur sous la grille
+
+- `index.html` : nouveau bloc `.bilan` sous la grille, qui regroupe le compteur « Parties terminées » et le score « Croix : 0 » / « Rond : 0 ».
+- `assets/js/main.js` : objet `victoires` (0 pour chaque joueur au chargement de la page) ; `compterVictoire` ajoute 1 au gagnant au moment où la victoire est annoncée (rien en cas de match nul), et `afficherScore` met à jour l'affichage. « Nouvelle partie » ne touche pas au score ; il repart à 0 à l'actualisation (pas de sauvegarde). Score exposé en lecture via `window.Morpion.victoires()`.
+- `assets/css/style.css` : styles `.bilan`, `.score` et `.score__joueur` (repère rouge pour la croix, bleu pour le rond).
+- `README.md` : explication du score.
+
 ## JME-20261122-200037 — Incrémenter le compteur de parties terminées
 
 - `index.html` : ligne « Parties terminées : 0 » sous la grille (entre la zone de message et le bouton « Nouvelle partie »).
