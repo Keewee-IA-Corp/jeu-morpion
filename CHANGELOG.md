@@ -1,5 +1,11 @@
 # Historique des changements
 
+## JME-20261122-200037-2 — Afficher le nombre de parties jouées
+
+- Aucun changement de code : l'affichage demandé existe déjà depuis JME-20261122-200037. La ligne « Parties terminées : 0 » est écrite dans `index.html`, sous la grille, dans le bloc `.bilan`.
+- Vérifié dans `assets/js/main.js` : `partiesTerminees` vaut 0 au chargement et `afficherCompteur()` est appelé au démarrage (critère 1). `compterPartieTerminee()` est appelé dans le même traitement que l'annonce de la victoire ou du match nul, donc l'affichage se met à jour aussitôt (critère 2). Le compteur n'est pas sauvegardé (pas de `localStorage`), il repart donc à 0 quand on actualise la page (critère 3).
+- Une partie relancée avec « Nouvelle partie » avant sa fin n'est pas comptée (`nouvellePartie` ne touche pas au compteur).
+
 ## JME-20261122-220353 — Afficher le score de victoires de chaque joueur sous la grille
 
 - `index.html` : nouveau bloc `.bilan` sous la grille, qui regroupe le compteur « Parties terminées » et le score « Croix : 0 » / « Rond : 0 ».
